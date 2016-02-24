@@ -1,18 +1,23 @@
-var livingImage = '../img/living.png';
+var livingImage = './img/living.png';
 var livingSummary = 'Living index means how people can live comfortably. 70 is most comfortable.';
 
-//var drivingImage = '../img/drive.png';
+//var drivingImage = './img/drive.png';
 //var drivingSummary = 'Driving index means recoomendation value of driving a car. The higher, the more suitable.';
 
-var washingImage = '../img/washing.png';
+var washingImage = './img/washing.png';
 var washingSummary = 'Washing index means recoomendation value of washing a cloth. The higher, more suitable.';
 
-var dryImage = '../img/dry.png';
+var dryImage = './img/dry.png';
 var drySummary = 'Dry index means how dryness of the air. Show dryness according to the humidity sensor.';
 
-var rainingImage = '../img/raining.png';
+var rainingImage = './img/raining.png';
 var rainingSummary = 'Raining rate shows current raining rate. This is real time information from the sensor.';
 
+var smileImage = './img/smile.png';
+var smileSummary = 'Raining rate shows current raining rate. This is real time information from the sensor.';
+
+var environmentalImage = './img/dry.png';
+var environmentalSummary = 'Environmental Index means the cleanness of the environmental. This is calculated by real time information from the sensor.';
 function onGoodButtonClicked(){
     $('#box_thanks').fadeIn('slow',function(){
         $("#box_thanks").get(0).scrollIntoView(true)
@@ -29,20 +34,21 @@ function initialize(){
 //    setDrivingImage(drivingImage);
     setWashingSummary(washingSummary);
     setWashingImage(washingImage);
-    setDrySummary(drySummary);
-    setDryImage(dryImage);
-    setRainingSummary(rainingSummary);
-    setRainingImage(rainingImage);
+    setSmileSummary(smileSummary);
+    setSmileImage(smileImage);
+    setEnvironmentalSummary(environmentalSummary);
+    setEnvironmentalImage(environmentalImage);
 }
 
-function setSoxParams(temperature, windspeed, humidity, rainfall){
-    setDryIndex(humidity);
-    setRainingRate(rainfall);
+function setSoxParams(temperature, windspeed, humidity, rainfall, no2){
+    //setDryIndex(humidity);
+    //setRainingRate(rainfall);
+    //setEnvironmentalIndex(no2);
     setLivingIndex(temperature, humidity);
     setWashingIndex(temperature, humidity, rainfall, windspeed);
 }
 
-function setLivingIndex(temperature, humidity){
+function calcLivingIndex(temperature, humidity){
     var base = 70;
     var discomfort_index = 0.81 * Number(temperature) + 0.01 * Number(humidity) * (0.99 * Number(temperature) - 14.3) + 46.3;
     var life_index = Math.ceil(100 - 3 * Math.abs(base - discomfort_index));
@@ -73,14 +79,49 @@ function setLivingIndex(temperature, humidity){
         message = '<h3 class="important">Living Index: ' + life_index + '</h3>';
         message += 'It is too much hot today....';
     }
-    
-    setLivingMessage(message);
+    return message;
 }
 
-function setWashingIndex(temperature, humidity, rainfall, windspeed){
+function getLivingIndex(temperature, humidity){
+    var base = 70;
+    var discomfort_index = 0.81 * Number(temperature) + 0.01 * Number(humidity) * (0.99 * Number(temperature) - 14.3) + 46.3;
+    var life_index = Math.ceil(100 - 3 * Math.abs(base - discomfort_index));
+
+    return life_index;
+
+}
+
+function setLivingIndex(temperature, humidity){
+    setLivingMessage(calcLivingIndex(temperature, humidity));
+}
+
+function getWashingIndex(temperature, humidity, rainfall, windspeed, avgTemp, avgHum){
+    //var averageTemperature = getAverageTemperature();
+    //var averageHumidity = getAverageHumidity();
+    var averageTemperature = avgTemp;
+    var averageHumidity = avgHum;
+
+    var rainfallParam = 1.5;
+    var humidityParam = 1.5;
+    var temperatureParam = 0.8;
+    var windParam = 1;
+
+    index = 100 - (Number(rainfall) * rainfallParam) - (( Number(humidity) - averageHumidity) * humidityParam) + (( Number(temperature) - averageTemperature) * temperatureParam) + (Number(windspeed) * windParam);
+
+    if (index > 100){
+        index = 100;
+    } else if (index < 0){
+        index = 0;
+    }
+    
+    return index;
+}
+
+function calcWashingIndex(temperature, humidity, rainfall, windspeed){
     var averageTemperature = getAverageTemperature();
     var averageHumidity = getAverageHumidity();
 
+    //var rainfallParam = 0;
     var rainfallParam = 1.5;
     var humidityParam = 1.5;
     var temperatureParam = 0.8;
@@ -112,8 +153,12 @@ function setWashingIndex(temperature, humidity, rainfall, windspeed){
         message = '<h3 class="warning">Washing Index: ' + index + '</h3>';
         message += 'Today is wonderful day for washing!!';
     }
+    
+    return message;
+}
 
-    setWashingMessage(message);
+function setWashingIndex(temperature, humidity, rainfall, windspeed){
+    setWashingMessage(calcWashingIndex(temperature, humidity, rainfall, windspeed));
 }
 
 function setDryIndex(humidity){
@@ -147,8 +192,46 @@ function setRainingRate(rainfall){
     setRainingMessage(message);
 }
 
+function calcEnvironmentalIndex(no2){
+    if (isNaN(Number(no2))){
+        no2 = 0;
+    }
+    var message = '<h3>Environmental Index</h3>';
+    var value = Math.floor(100 - no2*6); 
+    if (value > 100){
+        value = 100;
+    } else if (value < 0){
+        value = 0;
+    }
+    message += '<span class="normal">' + value + '</span>';
+    return message;
+}
+
+function getEnvironmentalIndex(no2){
+    if (isNaN(Number(no2))){
+        no2 = 0;
+    }
+    var value = Math.floor(100 - no2*6); 
+    if (value > 100){
+        value = 100;
+    } else if (value < 0){
+        value = 0;
+    }
+    return value;
+}
+
+function setEnvironmentalIndex(no2){
+    setEnvironmentalMessage(calcEnvironmentalIndex(no2));
+}
+
+function setSmileCount(smile){
+    var message = '<h3>Today\'s Total Smile</h3>'
+    message += '<span class="warning">' + smile + '</span>';
+    setSmileMessage(message);
+}
+
 function goResultPage(){
-    location.replace("./result.html");
+    location.replace("../result.html");
 }
 
 function setLivingSummary(summary){
@@ -199,6 +282,30 @@ function setDryMessage(message){
     $("#dry_message").html(message);
 }
 
+function setSmileImage(url){
+    $("#smile_img").html('<img src=\"' + url + '\">');
+}
+
+function setSmileMessage(message){
+    $("#smile_message").html(message);
+}
+
+function setSmileSummary(summary){
+    $("#smile_summary").html(summary);
+}
+
+function setEnvironmentalImage(url){
+    $("#environmental_img").html('<img src=\"' + url + '\">');
+}
+
+function setEnvironmentalMessage(message){
+    $("#environmental_message").html(message);
+}
+
+function setEnvironmentalSummary(summary){
+    $("#environmental_summary").html(summary);
+}
+
 function setRainingSummary(summary){
     $("#raining_summary").html(summary);
 }
@@ -209,4 +316,28 @@ function setRainingImage(url){
 
 function setRainingMessage(message){
     $("#raining_message").html(message);
+}
+
+function setSmileSummary(summary){
+    $("#smile_summary").html(summary);
+}
+
+function setSmileImage(url){
+    $("#smile_img").html('<img src=\"' + url + '\">');
+}
+
+function setSmileMessage(message){
+    $("#smile_message").html(message);
+}
+
+function setEnvironmentalSummary(summary){
+    $("#environmental_summary").html(summary);
+}
+
+function setEnvironmentalImage(url){
+    $("#environmental_img").html('<img src=\"' + url + '\">');
+}
+
+function setEnvironmentalMessage(message){
+    $("#environmental_message").html(message);
 }

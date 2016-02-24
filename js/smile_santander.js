@@ -4,6 +4,8 @@ var client;
 
 var TARGET_CITY = "Santander";
 var ENV = TARGET_CITY + "WeatherDemo";
+var ENV2 = TARGET_CITY + "WeatherSensorDemo";
+var SMILE = 'TodayTotalSmile' + TARGET_CITY;
 
 var temperature = 0;
 var windspeed = 0;
@@ -22,7 +24,7 @@ window.onload = function() {
         status("Connected: "+soxEvent.soxClient);
 
 
-        var deviceNames = [ENV];
+        var deviceNames = [ENV, ENV2, SMILE];
         deviceNames.forEach(function(name){
             var device = new Device(name);//デバイス名に_dataや_metaはつけない
             /* クライアントに繋がったら、デバイスにサブスクライブする */
@@ -89,6 +91,16 @@ window.onload = function() {
             humidity = device.transducers[6].sensorData.rawValue;
             rainfall = device.transducers[7].sensorData.rawValue;
             setSoxParams(temperature, windspeed, humidity, rainfall);
+        }
+
+        if (device.name == ENV2){
+            no2 = device.transducers[8].sensorData.rawValue;
+            setEnvironmentalIndex(no2);
+        }
+
+        if (device.name == SMILE){
+            var smile = device.transducers[2].sensorData.rawValue;
+            setSmileCount(smile);
         }
     };
 
