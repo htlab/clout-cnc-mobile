@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ClouT Information Page</title>
+        <link rel="stylesheet" href="../css/result.css">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+         <!-- sox library -->
+        <script src="../js/lib/jquery-1.10.2.js"></script>
+        <script src="../js/lib/jquery.dropotron.min.js"></script>
+        <script src="../js/lib/config.js"></script>
+        <script src="../js/lib/underscore-min.js"></script>
+        <script src="../js/lib/backbone.js"></script>
+        <script src="../js/lib/strophe.js"></script>
+        <script src="../js/lib/sox.strophe.pubsub.js"></script>
+        <script src="../js/lib/strophe.x.js"></script>
+        <script src="../js/lib/jscron.js"></script>
+    
+        <script src="../js/sox/SoxClient.js"></script>
+        <script src="../js/sox/SoxEventListener.js"></script>
+        <script src="../js/sox/Device.js"></script>
+        <script src="../js/sox/Transducer.js"></script>
+        <script src="../js/sox/SensorData.js"></script>
+
+        <script src="../js/result.js"></script>
+        <script src="../js/smile_result.js"></script>
+
+
+
+    </head>
+    <body>
+        <div class="header">
+            <h1>Intercontinental Comparison</h1>
+        </div>
+        <h3>
+            Number of good of the city.
+        </h3>
+        <div class="infobox" id="mitaka">
+            <div class="box_header">
+                <h2 class="box_index">
+                    Mitaka (Japan)
+                    <img src="../img/flag-jp.png" class="flag">
+                </h2>
+            </div>
+            <!--<div class="box_air" id="air_mitaka"></div>-->
+            <div class="box_smile" id="smile_mitaka"></div>
+        </div>
+        <div class="infobox" id="genova">
+            <div class="box_header">
+                <h2 class="box_index">
+                    Genova (Italy)
+                    <img src="../img/flag-it.png" class="flag">
+                </h2>
+            </div>
+            <!--<div class="box_air" id="air_genova"></div>-->
+            <div class="box_smile" id="smile_genova"></div>
+        </div>
+        <div class="infobox" id="santander">
+            <div class="box_header">
+                <h2 class="box_index">
+                    Satnander (Spain)
+                    <img src="../img/flag-es.png" class="flag">
+                </h2>
+            </div>
+            <!--<div class="box_air" id="air_santander"></div>-->
+            <div class="box_smile" id="smile_santander"></div>
+        </div>
+        <div class="infobox" id="raining_rate">
+            <div class="box_header">
+                <h2 class="box_index">
+                    Fujisawa (Japan)
+                    <img src="../img/flag-jp.png" class="flag">
+                </h2>
+            </div>
+            <!--<div class="box_air" id="air_fujisawa"></div>-->
+            <div class="box_smile" id="smile_fujisawa"></div>
+        </div>
+        <div class="button_center">
+            <input type="button" class="btn" value="Back" onclick="onBackButtonClicked('santander')"></input>
+        </div>
+    </body>
+</html>

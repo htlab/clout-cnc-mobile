@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ClouT Information Page</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+         <!-- sox library -->
+        <script src="../js/lib/jquery-1.10.2.js"></script>
+        <script src="../js/lib/jquery.dropotron.min.js"></script>
+        <script src="../js/lib/config.js"></script>
+        <script src="../js/lib/underscore-min.js"></script>
+        <script src="../js/lib/backbone.js"></script>
+        <script src="../js/lib/strophe.js"></script>
+        <script src="../js/lib/sox.strophe.pubsub.js"></script>
+        <script src="../js/lib/strophe.x.js"></script>
+        <script src="../js/lib/jscron.js"></script>
+    
+        <script src="../js/sox/SoxClient.js"></script>
+        <script src="../js/sox/SoxEventListener.js"></script>
+        <script src="../js/sox/Device.js"></script>
+        <script src="../js/sox/Transducer.js"></script>
+        <script src="../js/sox/SensorData.js"></script>
+
+        <script src="../js/santander.js"></script>
+        <script src="../js/smile_santander.js"></script>
+        <script src="../js/common.js"></script>
+
+
+
+    </head>
+    <body>
+        <div class="header">
+            <h1>Today's Realtime City Information in Santander</h1>
+        </div>
+        <h3>
+            These informations are gathered from sensors of your city.
+            <br>
+            If you think these informations are valuable, please push <br>
+            <span class="important">'Good Button'</span><br> 
+            under the information boxes. 
+        </h3>
+        <div class="infobox" id="living_index">
+            <div id="box_header">
+                <h2 class="box_index">Living Index</h2>
+            </div>
+            <div class="box_info">
+                <div class="box_img" id="living_img"></div>
+                <div class="box_summary" id="living_summary"></div>
+            </div>
+            <div class="box_message" id="living_message"></div>
+        </div>
+        <!--
+        <div class="infobox" id="driving_index">
+            <div class="box_header">
+                <h2 class="box_index">Driving Index</h2>
+            </div>
+            <div class="box_info">
+                <div class="box_img" id="driving_img"></div>
+                <div class="box_summary" id="driving_summary"></div>
+            </div>
+            <div class="box_message" id="driving_message"></div>
+        </div>
+        -->
+        <div class="infobox" id="washing_index">
+            <div class="box_header">
+                <h2 class="box_index">Washing Index</h2>
+            </div>
+            <div class="box_info">
+                <div class="box_img" id="washing_img"></div>
+                <div class="box_summary" id="washing_summary"></div>
+            </div>
+            <div class="box_message" id="washing_message"></div>
+        </div>
+        <div class="infobox" id="dry_index">
+            <div class="box_header">
+                <h2 class="box_index">Dry Index</h2>
+            </div>
+            <div class="box_info">
+                <div class="box_img" id="dry_img"></div>
+                <div class="box_summary" id="dry_summary"></div>
+            </div>
+            <div class="box_message" id="dry_message"></div>
+        </div>
+        <div class="infobox" id="raining_rate">
+            <div class="box_header">
+                <h2 class="box_index">Raining Rate</h2>
+            </div>
+            <div class="box_info">
+                <div class="box_img" id="raining_img"></div>
+                <div class="box_summary" id="raining_summary"></div>
+            </div>
+            <div class="box_message" id="raining_message"></div>
+        </div>
+        <div id="box_thanks">
+            <h2>Thanks for your Good!</h2>
+            <h3 class="light">Move to result page</h3>
+        </div>
+        <div class="button_center">
+            <input type="button" class="btn" value="Good" onclick="onGoodButtonClicked()"></input>
+        </div>
+    </body>
+</html>
