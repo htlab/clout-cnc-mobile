@@ -1,22 +1,22 @@
-var livingImage = './img/living.png';
+var livingImage = '../img/living.png';
 var livingSummary = 'Living index means how people can live comfortably. 70 is most comfortable.';
 
 //var drivingImage = './img/drive.png';
 //var drivingSummary = 'Driving index means recoomendation value of driving a car. The higher, the more suitable.';
 
-var washingImage = './img/washing.png';
+var washingImage = '../img/washing.png';
 var washingSummary = 'Washing index means recoomendation value of washing a cloth. The higher, more suitable.';
 
-var dryImage = './img/dry.png';
+var dryImage = '../img/dry.png';
 var drySummary = 'Dry index means how dryness of the air. Show dryness according to the humidity sensor.';
 
-var rainingImage = './img/raining.png';
+var rainingImage = '../img/raining.png';
 var rainingSummary = 'Raining rate shows current raining rate. This is real time information from the sensor.';
 
-var smileImage = './img/smile.png';
+var smileImage = '../img/smile.png';
 var smileSummary = 'Raining rate shows current raining rate. This is real time information from the sensor.';
 
-var environmentalImage = './img/dry.png';
+var environmentalImage = '../img/dry.png';
 var environmentalSummary = 'Environmental Index means the cleanness of the environmental. This is calculated by real time information from the sensor.';
 function onGoodButtonClicked(){
     $('#box_thanks').fadeIn('slow',function(){
